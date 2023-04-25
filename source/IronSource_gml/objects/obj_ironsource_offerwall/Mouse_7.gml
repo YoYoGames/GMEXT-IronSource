@@ -1,0 +1,2 @@
+
+IronSource_Offerwall_Show(IronSource_Default_OfferWall);
