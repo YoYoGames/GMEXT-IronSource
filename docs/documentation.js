@@ -424,3 +424,18 @@ function ironsource_validate_integration() {}
  * @section_end
  * @module_end
  */
+
+/** 
+ * @module home
+ * @title Home
+ * @desc This extension allows you to monetise your application by displaying advertisements, interstitials and rewarded video from IronSource.
+ * @section Modules
+ * @desc There are a great number of different functions related to the IronSource API. We've split them up into the following sections to make it easier to navigate:
+ * @ref module.general
+ * @ref module.banner
+ * @ref module.interstitial
+ * @ref module.rewarded
+ * @ref module.offerwall
+ * @section_end
+ * @module_end
+ */
