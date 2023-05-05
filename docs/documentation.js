@@ -2,14 +2,14 @@
 
 /**
  * @func ironsource_init
- * @desc This function initializes the IronSource SDK with the app key. This app key should be provided through the extensions panel.
+ * @desc This function initialises the ironSource SDK with the app key. This app key should be provided through the extensions panel.
  * @func_end
  */
 function ironsource_init() {}
 
 /** 
  * @func ironsource_banner_init
- * @desc This function initializes the IronSource SDK for the Banner ad unit.
+ * @desc This function initialises the ironSource SDK for the Banner ad unit.
  * @event social
  * @member {string} type The value `"ironsource_banner_init"`
  * @event_end
@@ -19,13 +19,13 @@ function ironsource_banner_init() {}
 
 /** 
  * @func ironsource_banner_create
- * @desc Creates and displays a banner ad with the specified placement, size, and position.
+ * @desc Creates and displays a banner ad with the specified placement, size and position.
  * @param {string} placement_name The name of the ad placement.
  * @param {constant.BannerSize} size The size of the banner ad.
  * @param {boolean} bottom The position of the banner ad (`false`: top, `true`: bottom).
  * 
  * @event social
- * @desc If the banner loaded successfuly:
+ * @desc If the banner loaded successfully:
  * @member {string} type The value `"ironsource_banner_loaded"`
  * @event_end
  * 
@@ -57,12 +57,12 @@ function ironsource_banner_init() {}
  * 
  * @func_end
  */
-function ironsource_banner_create() {}    
+function ironsource_banner_create() {}
 
 /** 
  * @func ironsource_banner_move
  * @desc Moves the banner ad to the top or bottom of the screen based on the input value.
- * @param {boolean} bottom The position of the banner ad (false: top, true: bottom).
+ * @param {boolean} bottom The position of the banner ad (`false`: top, `true`: bottom).
  * @func_end
  */
 function ironsource_banner_move() {}
@@ -86,7 +86,7 @@ function ironsource_banner_hide() {}
  * @desc Removes and destroys the banner ad and its layout if they exist.
  * @func_end
  */
-function ironsource_banner_remove() {}    
+function ironsource_banner_remove() {}
 
 /** 
  * @func ironsource_banner_get_width
@@ -106,7 +106,7 @@ function ironsource_banner_get_height() {}
 
 /** 
  * @func ironsource_interstitial_init
- * @desc This function initializes the IronSource SDK for the Interstitial ad unit.
+ * @desc This function initialises the ironSource SDK for the Interstitial ad unit.
  * @event social
  * @member {string} type The value `"ironsource_interstitial_init"`
  * @event_end
@@ -119,7 +119,7 @@ function ironsource_interstitial_init() {}
  * @desc Loads an interstitial ad.
  * 
  * @event social
- * @desc If the interstitial loaded successfuly:
+ * @desc If the interstitial loaded successfully:
  * @member {string} type The value `"ironsource_interstitial_ready"`
  * @event_end
  * 
@@ -131,7 +131,7 @@ function ironsource_interstitial_init() {}
  * 
  * @func_end
  */
-function ironsource_interstitial_load() {}    
+function ironsource_interstitial_load() {}
 
 /** 
  * @func ironsource_interstitial_is_capped
@@ -140,7 +140,7 @@ function ironsource_interstitial_load() {}
  * @return {boolean}
  * @func_end
  */
-function ironsource_interstitial_is_capped() {}    
+function ironsource_interstitial_is_capped() {}
 
 /** 
  * @func ironsource_interstitial_show
@@ -148,7 +148,7 @@ function ironsource_interstitial_is_capped() {}
  * @param {string} placement_name The name of the ad placement.
  * 
  * @event social
- * @desc If the interstitial showed successfuly:
+ * @desc If the interstitial showed successfully:
  * @member {string} type The value `"ironsource_interstitial_show_succeeded"`
  * @event_end
  * 
@@ -186,7 +186,7 @@ function ironsource_interstitial_is_ready() {}
 
 /** 
  * @func ironsource_rewarded_video_init
- * @desc This function initializes the IronSource SDK for the Rewarded Video ad unit.
+ * @desc This function initialises the ironSource SDK for the Rewarded Video ad unit.
  * 
  * @event social
  * @desc Triggered when the rewarded video initialization process starts:
@@ -205,7 +205,7 @@ function ironsource_interstitial_is_ready() {}
  * @event_end
  * 
  * @event social
- * @desc If the banner loaded successfuly:
+ * @desc If the banner loaded successfully:
  * @member {string} type The value `"ironsource_rewarded_video_load_failed"`.
  * @member {string} error The error message.
  * @event_end
@@ -220,7 +220,7 @@ function ironsource_rewarded_video_init() {}
  * @param {string} placement_name The name of the ad placement.
  * 
  * @event social
- * @desc Triggered when the Rewarded Video ad view has opened. Your game will loose focus
+ * @desc Triggered when the Rewarded Video ad view has opened. Your game will lose focus.
  * @member {string} type The value `"ironsource_rewarded_video_opened"`.
  * @event_end
  * 
@@ -230,29 +230,29 @@ function ironsource_rewarded_video_init() {}
  * @event_end
  * 
  * @event social
- * @desc Triggered when the video ad starts playing
+ * @desc Triggered when the video ad starts playing.
  * @member {string} type The value `"ironsource_rewarded_video_started"`.
  * @event_end
  * 
  * @event social
- * @desc Triggered when the video ad ends playing
+ * @desc Triggered when the video ad ends playing.
  * @member {string} type The value `"ironsource_rewarded_video_ended"`.
  * @event_end
  * 
  * @event social
- * @desc Triggered when the user completed to watch the video, and should be rewarded.
+ * @desc Triggered when the user finished watching the video and should be rewarded.
  * @member {string} type The value `"ironsource_rewarded_video_rewarded"`.
  * @member {string} reward_name The name of the reward.
  * @member {string} reward_amount The amount the player should be rewarded.
  * @event_end
  * 
  * @event social
- * @desc Triggered when the rewarded video ad was failed to show
+ * @desc Triggered when the rewarded video ad failed to show.
  * @member {string} type The value `"ironsource_rewarded_video_show_failed"`.
  * @event_end
  * 
  * @event social
- * @desc Triggered when the video ad was clicked. This callback is not supported by all networks, and we recommend using it only if it's supported by all networks you included in your build
+ * @desc Triggered when the video ad was clicked. This callback is not supported by all networks, and we recommend using it only if it's supported by all networks you included in your build.
  * @member {string} type The value `"ironsource_rewarded_video_clicked"`.
  * @event_end
  * 
@@ -279,7 +279,7 @@ function ironsource_rewarded_video_is_capped() {}
 
 /** 
  * @func ironsource_offerwall_init
- * @desc This function initializes the IronSource SDK for the Offerwall ad unit.
+ * @desc This function initialises the ironSource SDK for the Offerwall ad unit.
  * @event social
  * @desc Triggered when Offerwall initialization starts.
  * @member {string} type The value `"ironsource_offerwall_init"`
@@ -288,7 +288,7 @@ function ironsource_rewarded_video_is_capped() {}
  * @event social
  * @desc Triggered when there is a change in the Offerwall availability status.
  * @member {string} type The value `"ironsource_offerwall_availability_changed"`
- * @member {boolean} available The value will change to `true` when Offerwall are available.
+ * @member {boolean} available The value will change to `true` when Offerwall is available.
  * You can then show the offerwall by calling ${function.ironsource_offerwall_show}.
  * @event_end
  * 
@@ -298,14 +298,14 @@ function ironsource_offerwall_init() {}
 
 /** 
  * @func ironsource_offerwall_get_credits
- * @desc Call this function to check if the Steam API was correctly initialized.
+ * @desc Call this function to check if the Steam API was correctly initialised.
  * 
  * @event social
  * @desc Triggered when the function call succeeds
  * @member {string} type The value `"ironsource_offerwall_credited"`
  * @member {real} credits The number of credits the user has earned.
  * @member {real} total_credits The total number of credits ever earned by the user.
- * @member {boolean} total_credits_flag In some cases, IronSource won’t be able to provide the exact amount of credits since the last event. In this case the `credits` will be equal to the `total_credits`, and this flag will be `true`.
+ * @member {boolean} total_credits_flag In some cases, ironSource won’t be able to provide the exact number of credits since the last event. In this case the `credits` will be equal to the `total_credits`, and this flag will be `true`.
  * @event_end
  * 
  * @event social
@@ -343,7 +343,7 @@ function ironsource_offerwall_show() {}
 
 /** 
  * @func ironsource_offerwall_set_client_side_callbacks
- * @desc Call this function to check if the Steam API was correctly initialized.
+ * @desc Call this function to check if the Steam API was correctly initialised.
 
  * @func_end
  */
@@ -351,7 +351,7 @@ function ironsource_offerwall_set_client_side_callbacks() {}
 
 /** 
  * @func ironsource_validate_integration
- * @desc This function validates the IronSource integration. It helps to ensure that the SDK is properly integrated into the app.
+ * @desc This function validates the ironSource integration. It helps to ensure that the SDK is properly integrated into the app.
  * @func_end
  */
 function ironsource_validate_integration() {}
@@ -362,9 +362,9 @@ function ironsource_validate_integration() {}
  * @const BannerSize
  * @desc These constants represent the size of a given banner.
  * @member Ironsource_BannerSize_Banner Represents the size of a normal banner.
- * @member Ironsource_BannerSize_Large Represents a banner of normal size.
+ * @member Ironsource_BannerSize_Large Represents a banner of a large size.
  * @member Ironsource_BannerSize_Rectangle Represents a rectangular banner.
- * @member Ironsource_BannerSize_Smart Represents dynamically sized banner that adapts to the mobile screen.
+ * @member Ironsource_BannerSize_Smart Represents a dynamically sized banner that adapts to the mobile screen.
  * @const_end
  */
 
@@ -384,7 +384,7 @@ function ironsource_validate_integration() {}
 /** 
  * @module banner
  * @title Banner
- * @desc This is module contains all functions that handle managing banner ads.
+ * @desc This module contains all functions that handle managing banner ads.
  * @section_func
  * @ref ironsource_banner_*
  * @section_end
@@ -398,7 +398,7 @@ function ironsource_validate_integration() {}
 /** 
  * @module interstitial
  * @title Interstitial 
- * @desc This is module contains all functions that handle managing interstitial ads.
+ * @desc This module contains all functions that handle managing interstitial ads.
  * @section_func
  * @ref ironsource_interstitial_*
  * @section_end
@@ -408,7 +408,7 @@ function ironsource_validate_integration() {}
 /** 
  * @module rewarded
  * @title Rewarded Video
- * @desc This is module contains all functions that handle managing rewarded video ads.
+ * @desc This module contains all functions that handle managing rewarded video ads.
  * @section_func
  * @ref ironsource_rewarded_video_*
  * @section_end
@@ -418,7 +418,7 @@ function ironsource_validate_integration() {}
 /** 
  * @module offerwall
  * @title Offerwall
- * @desc This is module contains all functions that handle managing offewall ads.
+ * @desc This module contains all functions that handle managing offerwall ads.
  * @section_func
  * @ref ironsource_offerwall_*
  * @section_end
@@ -428,9 +428,9 @@ function ironsource_validate_integration() {}
 /** 
  * @module home
  * @title Home
- * @desc This extension allows you to monetise your application by displaying advertisements, interstitials and rewarded video from IronSource.
+ * @desc This extension allows you to monetise your application by displaying advertisements, interstitials and rewarded video from ironSource.
  * @section Modules
- * @desc There are a great number of different functions related to the IronSource API. We've split them up into the following sections to make it easier to navigate:
+ * @desc There are a great number of different functions related to the ironSource API. We've split them up into the following sections to make it easier to navigate:
  * @ref module.general
  * @ref module.banner
  * @ref module.interstitial
