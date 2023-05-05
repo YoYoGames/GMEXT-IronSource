@@ -1,6 +1,6 @@
 
-if(IronSource_Interstitial_IsCapped(IronSource_Default_Interstitial)) 
+if(ironsource_interstitial_is_capped(IronSource_Default_Interstitial)) 
 	return;
 
-if(IronSource_Interstitial_IsReady()) 
-	IronSource_Interstitial_Show(IronSource_Default_Interstitial);
+if(ironsource_interstitial_is_ready()) 
+	ironsource_interstitial_show(IronSource_Default_Interstitial);

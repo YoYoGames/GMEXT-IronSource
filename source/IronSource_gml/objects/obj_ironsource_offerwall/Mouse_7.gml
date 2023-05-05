@@ -1,2 +1,2 @@
 
-IronSource_Offerwall_Show(IronSource_Default_OfferWall);
+ironsource_offerwall_show(IronSource_Default_OfferWall);

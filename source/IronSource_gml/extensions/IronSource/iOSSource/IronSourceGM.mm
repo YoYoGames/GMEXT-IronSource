@@ -35,58 +35,58 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     }
 }
 
-//-(void) IronSource_Init:(NSString*) appKey{self.IS_AppKey = appKey;}
--(void) IronSource_Init
+//-(void) ironsource_init:(NSString*) appKey{self.IS_AppKey = appKey;}
+-(void) ironsource_init
 {
 	self.IS_AppKey = [NSString stringWithUTF8String: extOptGetString((char*)"IronSource", (char*)"AppKey_iOS")];
 }
 
--(void) IronSource_Init_Banner
+-(void) ironsource_banner_init
 {
     [IronSource setBannerDelegate:self];
 	[IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_BANNER]];
 	
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_Init_Banner");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_init");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
--(void) IronSource_Init_Interstitial
+-(void) ironsource_interstitial_init
 {
 	[IronSource setInterstitialDelegate:self];
 	[IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_INTERSTITIAL]];
 	
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_Init_Interstitial");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_init");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 	
--(void) IronSource_Init_RewardedVideo
+-(void) ironsource_rewarded_video_init
 {
 	[IronSource setRewardedVideoDelegate:self];
 	[IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_REWARDED_VIDEO]];
 	
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_Init_RewardedVideo");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_init");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
--(void) IronSource_Init_Offerwall
+-(void) ironsource_offerwall_init
 {
 	[IronSource setOfferwallDelegate:self];
 	[IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_OFFERWALL]];	
 	
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_Init_Offerwall");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_init");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
--(void) IronSource_ValidateIntegration
+-(void) ironsource_validate_integration
 {
 	[ISIntegrationHelper validateIntegration];
 }
 
--(void) IronSource_Banner_Create:(NSString*) placement_name size:(double) size bottom: (double)bottom
+-(void) ironsource_banner_create:(NSString*) placement_name size:(double) size bottom: (double)bottom
 {
     self->bottom = bottom;
     if(self.bannerView != nil)
@@ -113,7 +113,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     [IronSource loadBannerWithViewController:g_controller size:bannerSize];
 }
 
--(void) IronSource_Banner_Move: (double)bottom
+-(void) ironsource_banner_move: (double)bottom
 {
     int x_ = 1;
     int y_;
@@ -171,19 +171,19 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     }
 }
 
--(void) IronSource_Banner_Hide
+-(void) ironsource_banner_hide
 {
     if( self.bannerView != nil )
         self.bannerView.hidden = true;
 }
 
--(void) IronSource_Banner_Show
+-(void) ironsource_banner_show
 {
     if( self.bannerView != nil )
         self.bannerView.hidden = false;
 }
 
--(void) IronSource_Banner_Remove
+-(void) ironsource_banner_remove
 {
     if( self.bannerView != nil )
     {
@@ -194,7 +194,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     }
 }
 
--(double) IronSource_Banner_GetWidth
+-(double) ironsource_banner_get_width
 {
 	if (self.bannerView == nil)
 		return 0;
@@ -202,7 +202,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 	return self.bannerView.bounds.size.width;
 }
 
--(double) IronSource_Banner_GetHeight
+-(double) ironsource_banner_get_height
 {
 	if (self.bannerView == nil)
 		return 0;
@@ -215,10 +215,10 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     self.bannerView = bannerView;
     
     [g_glView addSubview:self.bannerView];
-    [self IronSource_Banner_Move:bottom];
+    [self ironsource_banner_move:bottom];
     
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnBannerAdLoaded");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_loaded");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -226,7 +226,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)bannerDidFailToLoadWithError:(NSError *)error 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnBannerAdLoadFailed");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_load_failed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);	
 }
 
@@ -234,14 +234,14 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)didClickBanner 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnBannerAdClicked");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_clicked");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)bannerWillPresentScreen 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnBannerAdScreenPresented");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_presented");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -249,7 +249,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)bannerDidDismissScreen 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnBannerAdScreenDismissed");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_dismissed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -257,7 +257,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)bannerWillLeaveApplication 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnBannerAdLeftApplication");
+	dsMapAddString(dsMapIndex, "type","ironsource_banner_left_application");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -268,22 +268,22 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 
 //////////////////////////// IronSource Interstitial ////////////////////////////////////////////// 
 	
--(void) IronSource_Interstitial_Load
+-(void) ironsource_interstitial_load
 {
 	[IronSource loadInterstitial];
 }
 
--(void) IronSource_Interstitial_IsCapped:(NSString*)placement_name
+-(void) ironsource_interstitial_is_capped:(NSString*)placement_name
 {
 	[IronSource isInterstitialCappedForPlacement:placement_name];
 }
 
--(void) IronSource_Interstitial_Show:(NSString*) placement_name
+-(void) ironsource_interstitial_show:(NSString*) placement_name
 {
     [IronSource showInterstitialWithViewController:g_controller placement:placement_name];
 }
 
--(double) IronSource_Interstitial_IsReady
+-(double) ironsource_interstitial_is_ready
 {
 	if([IronSource hasInterstitial])
 		return 1.0;
@@ -293,7 +293,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)interstitialDidLoad 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdReady");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_ready");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -301,7 +301,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)interstitialDidFailToShowWithError:(NSError *)error 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdLoadFailed");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_load_failed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -309,7 +309,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)didClickInterstitial 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdClicked");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_clicked");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -317,7 +317,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)interstitialDidClose 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdClosed");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_closed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -325,14 +325,14 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)interstitialDidOpen 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdOpened");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_opened");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 -(void)interstitialDidFailToLoadWithError:(NSError *)error 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdShowFailed");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_show_failed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -340,26 +340,26 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)interstitialDidShow 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnInterstitialAdShowSucceeded");
+	dsMapAddString(dsMapIndex, "type","ironsource_interstitial_show_succeeded");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 ///////////////////////////////// RewardedVideo ////////////////////////////////////////////////////////
 //[IronSource shouldTrackReachability:YES];//?????
 //[IronSource setDynamicUserId:@"DynamicUserId"];
--(void) IronSource_RewardedVideo_Show:(NSString*)placement_name
+-(void) ironsource_rewarded_video_show:(NSString*)placement_name
 {
 	[IronSource showRewardedVideoWithViewController:g_controller placement:placement_name];
 }
 
--(double) IronSource_RewardedVideo_IsReady
+-(double) ironsource_rewarded_video_is_ready
 {
 	if([IronSource hasRewardedVideo])
 		return 1.0;
 	return 0.0;
 }
 
--(double) IronSource_RewardedVideo_IsCapped:(NSString*) placement_name
+-(double) ironsource_rewarded_video_is_capped:(NSString*) placement_name
 {
 	if([IronSource isRewardedVideoCappedForPlacement:placement_name])
 		return 1.0;
@@ -369,11 +369,11 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)rewardedVideoHasChangedAvailability:(BOOL)available
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAvailabilityChanged");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_availability_changed");
 	if(available)
-		dsMapAddDouble(dsMapIndex, "value",0.0);
+		dsMapAddDouble(dsMapIndex, "available",1.0);
 	else
-		dsMapAddDouble(dsMapIndex, "value",1.0);
+		dsMapAddDouble(dsMapIndex, "available",0.0);
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -381,28 +381,28 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)didReceiveRewardForPlacement:(ISPlacementInfo *)placementInfo 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdRewarded");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_rewarded");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)rewardedVideoDidFailToShowWithError:(NSError *)error 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdShowFailed");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_show_failed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)rewardedVideoDidOpen 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdOpened");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_opened");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)rewardedVideoDidClose 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdClosed");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_closed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -410,7 +410,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)didClickRewardedVideo:(ISPlacementInfo *)placementInfo
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdClicked");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_clicked");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -418,7 +418,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)rewardedVideoDidStart 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdStarted");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_started");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -426,23 +426,23 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)rewardedVideoDidEnd 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnRewardedVideoAdEnded");
+	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_ended");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 	
 /////////////////////////////Offerwall
 	
--(void) IronSource_Offerwall_GetCredits
+-(void) ironsource_offerwall_get_credits
 {
 	[IronSource offerwallCredits];
 }
 
--(void) IronSource_Offerwall_Show:(NSString*) placement_name
+-(void) ironsource_offerwall_show:(NSString*) placement_name
 {
 	[IronSource showOfferwallWithViewController:g_controller placement:placement_name];
 }
 
--(void) IronSource_Offerwall_SetClientSideCallbacks: (double)bool_
+-(void) ironsource_offerwall_set_client_side_callbacks: (double)bool_
 {
 	[ISSupersonicAdsConfiguration configurations].useClientSideCallbacks = [NSNumber numberWithInt:(int) bool_];
 }
@@ -450,39 +450,39 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)offerwallHasChangedAvailability:(BOOL)available 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnOfferwallAvailable");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_availability_changed");
 	if(available)
-		dsMapAddDouble(dsMapIndex, "value",0.0);
+		dsMapAddDouble(dsMapIndex, "available",1.0);
 	else
-		dsMapAddDouble(dsMapIndex, "value",1.0);
+		dsMapAddDouble(dsMapIndex, "available",0.0);
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 -(void)offerwallDidShow 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnOfferwallOpened");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_opened");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)offerwallDidFailToShowWithError:(NSError *)error 
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnOfferwallShowFailed");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_show_failed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)didReceiveOfferwallCredits:(NSDictionary *)creditInfo
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnOfferwallAdCredited");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_credited");
 
 	dsMapAddDouble(dsMapIndex, "credits",[[creditInfo valueForKey:@"credits"] doubleValue]);
-    dsMapAddDouble(dsMapIndex, "totalCredits",[[creditInfo valueForKey:@"totalCredits"] doubleValue]);
-	if([[creditInfo valueForKey:@"totalCreditsFlag"] boolValue])
-        dsMapAddDouble(dsMapIndex, "totalCreditsFlag",1.0);
+    dsMapAddDouble(dsMapIndex, "credits_total",[[creditInfo valueForKey:@"credits_total"] doubleValue]);
+	if([[creditInfo valueForKey:@"credits_total_flag"] boolValue])
+        dsMapAddDouble(dsMapIndex, "credits_total_flag",1.0);
 	else
-        dsMapAddDouble(dsMapIndex, "totalCreditsFlag",0.0);
+        dsMapAddDouble(dsMapIndex, "credits_total_flag",0.0);
 		
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
@@ -490,7 +490,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 - (void)didFailToReceiveOfferwallCreditsWithError:(NSError *)error
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnGetOfferwallCreditsFailed");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_credits_failed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
@@ -498,7 +498,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 -(void)offerwallDidClose
 {
 	int dsMapIndex = dsMapCreate();
-	dsMapAddString(dsMapIndex, "type","IronSource_OnOfferwallClosed");
+	dsMapAddString(dsMapIndex, "type","ironsource_offerwall_closed");
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 	

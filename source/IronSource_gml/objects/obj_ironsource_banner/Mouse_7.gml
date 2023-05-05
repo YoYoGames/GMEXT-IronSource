@@ -1,3 +1,3 @@
 
-IronSource_Banner_Create(IronSource_Default_Banner,Ironsource_BannerSize_Smart,true);
+ironsource_banner_create(IronSource_Default_Banner,Ironsource_BannerSize_Smart,true);
 

@@ -5,116 +5,115 @@ switch(async_load[?"type"])
 {
 	////////////////Banner
 	
-	case "IronSource_Init_Banner":
+	case "ironsource_init_banner":
 	break
 	
-	case "IronSource_Init_Interstitial":
-		IronSource_Interstitial_Load();
+	case "ironsource_init_interstitial":
+		ironsource_interstitial_load();
 	break
 	
-	case "IronSource_Init_RewardedVideo":
+	case "ironsource_init_rewarded_video":
 	break
 	
-	case "IronSource_Init_Offerwall":
+	case "ironsource_init_offerwall":
 	break
 	
-	case "IronSource_OnBannerAdLoaded": 
+	case "ironsource_banner_loaded": 
 	break
 	
-	case "IronSource_OnBannerAdLoadFailed": 
+	case "ironsource_banner_load_failed": 
 	break
 	
-	case "IronSource_OnBannerAdClicked": 
+	case "ironsource_banner_clicked": 
 	break
 	
-	case "IronSource_OnBannerAdScreenPresented": 
+	case "ironsource_banner_presented": 
 	break
 	
-	case "IronSource_OnBannerAdScreenDismissed": 
+	case "ironsource_banner_dismissed": 
 	break
 	
-	case "IronSource_OnBannerAdLeftApplication": 
+	case "ironsource_banner_left_application": 
 	break
 	
 	////////////////Interstitial
 	
-    case "IronSource_OnInterstitialAdReady": 
+    case "ironsource_interstitial_ready": 
 	break
 	
-    case "IronSource_OnInterstitialAdLoadFailed": 
-		IronSource_Interstitial_Load()
+    case "ironsource_interstitial_load_failed": 
+		ironsource_interstitial_load()
 	break
 	
-    case "IronSource_OnInterstitialAdClicked": 
+    case "ironsource_interstitial_clicked": 
 	break
 	
-    case "IronSource_OnInterstitialAdOpened": 
+    case "ironsource_interstitial_opened": 
 	break
 	
-    case "IronSource_OnInterstitialAdClosed": 
+    case "ironsource_interstitial_closed": 
 	break
 	
-    case "IronSource_OnInterstitialAdShowSucceeded": 
-		IronSource_Interstitial_Load()
+    case "ironsource_interstitial_show_succeeded": 
+		ironsource_interstitial_load()
 	break
 	
-    case "IronSource_OnInterstitialAdShowFailed": 
-		IronSource_Interstitial_Load()
+    case "ironsource_interstitial_show_failed": 
+		ironsource_interstitial_load()
 	break
 	
 	////////Reward Video
 	
-    case "IronSource_OnRewardedVideoAdOpened": 
+    case "ironsource_rewarded_video_opened": 
 	break
 	
-    case "IronSource_OnRewardedVideoAdClosed": 
+    case "ironsource_rewarded_video_closed": 
 	break
 	
-    case "IronSource_OnRewardedVideoAvailabilityChanged": 
+    case "ironsource_rewarded_video_availability_changed": 
 		var available = async_load[?"value"]
 	break
 	
-    case "IronSource_OnRewardedVideoAdStarted": 
+    case "ironsource_rewarded_video_started": 
 	break
 
-    case "IronSource_OnRewardedVideoAdEnded": 
+    case "ironsource_rewarded_video_ended": 
 	break
 	
-    case "IronSource_OnRewardedVideoAdRewarded": 
+    case "ironsource_rewarded_video_rewarded": 
 		show_message_async("Congrats!! (Reward The User)")
 	break        
 	
-    case "IronSource_OnRewardedVideoAdShowFailed": 
+    case "ironsource_rewarded_video_show_failed": 
 	break
 	
-    case "IronSource_OnRewardedVideoAdClicked": 
+    case "ironsource_rewarded_video_clicked": 
 	break
 	
 	////////////////Offer Wall
 	
 	
-    case "IronSource_OnOfferwallAvailable": 
+    case "ironsource_offerwall_available": 
 		var available = async_load[?"value"]
 	break
 	
-    case "IronSource_OnOfferwallOpened": 
+    case "ironsource_offerwall_opened": 
 	break
 	
-    case "IronSource_OnOfferwallShowFailed": 
+    case "ironsource_offerwall_show_failed": 
 	break
 	
-    case "IronSource_OnOfferwallAdCredited": 
-	
-		show_message_async(json_encode(async_load))
+    case "ironsource_offerwall_credited": 
+		
 		var credits = async_load[?"credits"]
-		var totalCredits = async_load[?"totalCredits"]
-		var totalCreditsFlag = async_load[?"totalCreditsFlag"]
+		var totalCredits = async_load[?"credits_total"]
+		var totalCreditsFlag = async_load[?"credits_total_flag"]
 		
 	break
 	
-    case "IronSource_OnGetOfferwallCreditsFailed": 
+    case "ironsource_offerwall_credits_failed": 
 	break
 
-    case "IronSource_OnOfferwallClosed": 
+    case "ironsource_offerwall_closed": 
 	break        
 }

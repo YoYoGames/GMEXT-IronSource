@@ -25,7 +25,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.2.1.75",
+    "IDEVersion": "2023.4.0.84",
   },
   "resources": [
     {"id":{"name":"Room_IronSource","path":"rooms/Room_IronSource/Room_IronSource.yy",},},

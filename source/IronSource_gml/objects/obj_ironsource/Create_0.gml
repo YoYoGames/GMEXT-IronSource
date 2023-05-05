@@ -1,13 +1,13 @@
 
-IronSource_Offerwall_SetClientSideCallbacks(true)
+ironsource_offerwall_set_client_side_callbacks(true)
 
-IronSource_Init()
+ironsource_init()
 
-IronSource_Init_Banner()
-IronSource_Init_Interstitial()
-IronSource_Init_RewardedVideo()
-IronSource_Init_Offerwall()
+ironsource_init_banner()
+ironsource_init_interstitial()
+ironsource_init_rewarded_video()
+ironsource_init_offerwall()
 
-show_debug_message("----------------- IronSource_ValidateIntegration START ---------------------")
-IronSource_ValidateIntegration()
-show_debug_message("----------------- IronSource_ValidateIntegration END ---------------------")
+show_debug_message("----------------- ironsource_validate_integration START ---------------------")
+ironsource_validate_integration()
+show_debug_message("----------------- ironsource_validate_integration END ---------------------")

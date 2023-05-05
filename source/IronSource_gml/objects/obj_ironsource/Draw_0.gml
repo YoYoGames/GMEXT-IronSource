@@ -1,2 +1,2 @@
 
-draw_text(25,100,"Banner Size: " + string(IronSource_Banner_GetWidth()) + "," + string(IronSource_Banner_GetHeight()))
+draw_text(25,100,"Banner Size: " + string(ironsource_banner_get_width()) + "," + string(ironsource_banner_get_height()))

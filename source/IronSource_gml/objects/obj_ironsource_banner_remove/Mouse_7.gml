@@ -1,2 +1,2 @@
 
-IronSource_Banner_Remove()
+ironsource_banner_remove()

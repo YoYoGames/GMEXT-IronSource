@@ -1,2 +1,2 @@
 
-IronSource_Offerwall_GetCredits()
+ironsource_offerwall_get_credits()

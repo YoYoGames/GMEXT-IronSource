@@ -1,2 +1,2 @@
 
-IronSource_Banner_Move(true)
+ironsource_banner_move(true)

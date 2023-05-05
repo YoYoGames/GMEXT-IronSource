@@ -1,5 +1,5 @@
-if(IronSource_RewardedVideo_IsCapped(IronSource_Default_RewardedVideo)) 
+if(ironsource_rewarded_video_is_capped(IronSource_Default_RewardedVideo)) 
 	return;
 	
-if(IronSource_RewardedVideo_IsReady())
-	IronSource_RewardedVideo_Show(IronSource_Default_RewardedVideo);
+if(ironsource_rewarded_video_is_ready())
+	ironsource_rewarded_video_show(IronSource_Default_RewardedVideo);
