@@ -1,12 +1,12 @@
 {
   "FolderOrderSettings": [
-    {"name":"Extensions","order":1,"path":"folders/IronSource/Extensions.yy",},
+    {"name":"IronSource Demo","order":2,"path":"folders/IronSource Demo.yy",},
     {"name":"Rooms","order":1,"path":"folders/IronSource Demo/Rooms.yy",},
+    {"name":"Extensions","order":1,"path":"folders/IronSource/Extensions.yy",},
     {"name":"YoYo Extensions Assets","order":1,"path":"folders/YoYo Extensions Assets.yy",},
     {"name":"Font","order":1,"path":"folders/YoYo Extensions Assets/Font.yy",},
     {"name":"Objects","order":2,"path":"folders/YoYo Extensions Assets/Objects.yy",},
     {"name":"Sprites","order":3,"path":"folders/YoYo Extensions Assets/Sprites.yy",},
-    {"name":"IronSource Demo","order":2,"path":"folders/IronSource Demo.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"Obj_IronSource_Offerwall_credits","order":8,"path":"objects/Obj_IronSource_Offerwall_credits/Obj_IronSource_Offerwall_credits.yy",},

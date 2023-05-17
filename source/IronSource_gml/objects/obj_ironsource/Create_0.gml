@@ -3,10 +3,10 @@ ironsource_offerwall_set_client_side_callbacks(true)
 
 ironsource_init()
 
-ironsource_init_banner()
-ironsource_init_interstitial()
-ironsource_init_rewarded_video()
-ironsource_init_offerwall()
+ironsource_banner_init()
+ironsource_interstitial_init()
+ironsource_rewarded_video_init()
+ironsource_offerwall_init()
 
 show_debug_message("----------------- ironsource_validate_integration START ---------------------")
 ironsource_validate_integration()

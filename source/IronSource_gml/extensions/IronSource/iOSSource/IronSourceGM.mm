@@ -382,6 +382,8 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 {
 	int dsMapIndex = dsMapCreate();
 	dsMapAddString(dsMapIndex, "type","ironsource_rewarded_video_rewarded");
+	dsMapAddString(dsMapIndex, "reward_name", placementInfo.rewardName);
+	dsMapAddDouble(dsMapIndex, "reward_amount", placementInfo.rewardAmount);
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 

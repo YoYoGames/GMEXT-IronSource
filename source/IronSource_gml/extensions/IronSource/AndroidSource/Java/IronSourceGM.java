@@ -482,7 +482,7 @@ public class IronSourceGM extends RunnerActivity
 	public void onRewardedVideoAdRewarded(Placement placement) {
 		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_rewarded");
-		RunnerJNILib.DsMapAddDouble(dsMapIndex, "reward_name", placement.getRewardName());
+		RunnerJNILib.DsMapAddString(dsMapIndex, "reward_name", placement.getRewardName());
 		RunnerJNILib.DsMapAddDouble(dsMapIndex, "reward_amount", (double)placement.getRewardAmount());
 		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 

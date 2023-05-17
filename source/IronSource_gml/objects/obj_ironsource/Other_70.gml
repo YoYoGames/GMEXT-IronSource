@@ -5,17 +5,17 @@ switch(async_load[?"type"])
 {
 	////////////////Banner
 	
-	case "ironsource_init_banner":
+	case "ironsource_banner_init":
 	break
 	
-	case "ironsource_init_interstitial":
+	case "ironsource_interstitial_init":
 		ironsource_interstitial_load();
 	break
 	
-	case "ironsource_init_rewarded_video":
+	case "ironsource_rewarded_video_init":
 	break
 	
-	case "ironsource_init_offerwall":
+	case "ironsource_offerwall_init":
 	break
 	
 	case "ironsource_banner_loaded": 
