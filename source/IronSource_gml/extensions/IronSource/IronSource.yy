@@ -119,8 +119,8 @@
   "maclinkerflags": "",
   "macsourcedir": "",
   "options": [
-    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppKey_Android","defaultValue":"ca-app-pub-3940256099942544~3347511713","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"89095c1f-a859-4bdf-909a-eb83dc36ba0b","hidden":false,"listItems":[],"optType":2,},
-    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppKey_iOS","defaultValue":"ca-app-pub-3940256099942544~1458002511","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"826451c6-9c0b-45de-9aca-081aa3bc5149","hidden":false,"listItems":[],"optType":2,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppKey_Android","defaultValue":"","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"89095c1f-a859-4bdf-909a-eb83dc36ba0b","hidden":false,"listItems":[],"optType":2,},
+    {"resourceType":"GMExtensionOption","resourceVersion":"1.0","name":"AppKey_iOS","defaultValue":"","description":"","displayName":"","exportToINI":false,"extensionId":null,"guid":"826451c6-9c0b-45de-9aca-081aa3bc5149","hidden":false,"listItems":[],"optType":2,},
   ],
   "optionsFile": "options.json",
   "packageId": "",
