@@ -1,0 +1,14 @@
+[
+    {
+        "projectFile": "source/IronSource_gml/IronSource.yyp",
+        "extensionFile": "source/IronSource_gml/extensions/IronSource/IronSource.yy",
+        "packageid": "com.yoyogames.ironsourceext",
+        "packagename": "IronSource Ext",
+        "packageVersion": "1.0.0",
+        "includedFolders": null,
+        "includedResources": null,
+        "excludedFolders": null,
+        "excludedResources": null,
+        "format": "LTS22"
+    }
+]
