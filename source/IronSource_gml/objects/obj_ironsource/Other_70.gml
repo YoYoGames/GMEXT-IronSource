@@ -54,10 +54,6 @@ switch(async_load[?"type"])
     case "ironsource_interstitial_closed": 
 	break
 	
-    case "ironsource_interstitial_show_succeeded": 
-		ironsource_interstitial_load()
-	break
-	
     case "ironsource_interstitial_show_failed": 
 		ironsource_interstitial_load()
 	break

@@ -1,9 +1,10 @@
 
 #import "IronSource/IronSource.h"
-#import <IronSource/ISConfigurations.h>
+
+//#import <IronSource/ISConfigurations.h>
 #import <AdSupport/AdSupport.h>
 
-@interface IronSourceGM:NSObject <ISBannerDelegate,ISInterstitialDelegate,ISRewardedVideoDelegate,ISOfferwallDelegate>
+@interface IronSourceGM:NSObject <LevelPlayRewardedVideoManualDelegate,LevelPlayInterstitialDelegate,ISOfferwallDelegate,LevelPlayBannerDelegate>
 {
     double bottom;
 }

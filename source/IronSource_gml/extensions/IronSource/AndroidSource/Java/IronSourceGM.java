@@ -28,12 +28,26 @@ import com.ironsource.mediationsdk.IronSourceBannerLayout;
 import com.ironsource.mediationsdk.integration.IntegrationHelper;
 import com.ironsource.mediationsdk.logger.IronSourceError;
 import com.ironsource.mediationsdk.model.Placement;
-import com.ironsource.mediationsdk.sdk.BannerListener;
-import com.ironsource.mediationsdk.sdk.InterstitialListener;
+import com.ironsource.mediationsdk.sdk.InitializationListener;
+import com.ironsource.mediationsdk.sdk.LevelPlayBannerListener;
+import com.ironsource.mediationsdk.sdk.LevelPlayInterstitialListener;
 import com.ironsource.mediationsdk.sdk.OfferwallListener;
-import com.ironsource.mediationsdk.sdk.RewardedVideoListener;
-import com.ironsource.mediationsdk.sdk.RewardedVideoManualListener;
+import com.ironsource.mediationsdk.sdk.LevelPlayRewardedVideoListener;
+import com.ironsource.mediationsdk.sdk.LevelPlayRewardedVideoManualListener;
 import com.ironsource.mediationsdk.utils.IronSourceUtils;
+
+// import com.ironsource.mediationsdk.AdInfo;
+// import com.ironsource.mediationsdk.sdk.AdInfo;
+// import com.ironsource.mediationsdk.IronSource.AdInfo;
+// import com.ironsource.mediationsdk.utils.AdInfo;
+// import com.ironsource.AdInfo;
+// import com.ironsource.mediationsdk.utils.IronSourceUtils.AdInfo;
+import com.ironsource.mediationsdk.adunit.adapter.utility.AdInfo;
+
+import com.ironsource.mediationsdk.demandOnly.ISDemandOnlyBannerLayout;
+import com.ironsource.mediationsdk.demandOnly.ISDemandOnlyBannerListener;
+import com.ironsource.mediationsdk.demandOnly.ISDemandOnlyInterstitialListener;
+import com.ironsource.mediationsdk.demandOnly.ISDemandOnlyRewardedVideoListener;
 
 import android.os.Process;
 import java.util.concurrent.BlockingQueue;
@@ -43,8 +57,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 
-public class IronSourceGM extends RunnerActivity
-		implements InterstitialListener, RewardedVideoManualListener, RewardedVideoListener, OfferwallListener {
+public class IronSourceGM extends RunnerSocial implements OfferwallListener
+{
 	IronSourceGM me = this;
 
 	int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -88,68 +102,160 @@ public class IronSourceGM extends RunnerActivity
 	}
 
 	private String IS_appKey = "";
-
-	// public void ironsource_init(String appKey){IS_appKey = appKey;}
-	public void ironsource_init() {
+	public void ironsource_init() 
+	{
+		Log.i("yoyo","ironsource_init");
 		IS_appKey = RunnerJNILib.extOptGetString("IronSource", "AppKey_Android");
+		// Log.i("yoyo",IS_appKey);
+		
+			// IronSource.init(activity, IS_appKey,new InitializationListener()
+			// { 
+				// @Override public void onInitializationComplete() 
+				// {
+					// int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+					// RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_init");
+					// RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+				// } 
+			// });
 	}
 
 	public void ironsource_banner_init() {
-		if (android.os.Build.VERSION.SDK_INT >= 19)
-			executorService.execute(new Runnable() {
-				public void run() {
-					IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.BANNER);
-
-					int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-					RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_init");
-					RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-				}
-			});
+		IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.BANNER);
 	}
 
-	public void ironsource_interstitial_init() {
-		if (android.os.Build.VERSION.SDK_INT >= 19)
-			executorService.execute(new Runnable() {
-				public void run() {
-					IronSource.setInterstitialListener(me);
-					IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.INTERSTITIAL);
+	public void ironsource_interstitial_init() 
+	{
+		IronSource.setLevelPlayInterstitialListener(new LevelPlayInterstitialListener() {
+		   @Override
+		   public void onAdReady(AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_ready");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
 
-					int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-					RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_init");
-					RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-				}
-			});
+		   @Override
+		   public void onAdLoadFailed(IronSourceError error)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_load_failed");
+				RunnerJNILib.DsMapAddString(dsMapIndex, "error", error.toString());
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdOpened(AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_opened");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdClosed(AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_closed");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdShowFailed(IronSourceError error, AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_show_failed");
+				RunnerJNILib.DsMapAddString(dsMapIndex, "error", error.toString());
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdClicked(AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_clicked");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdShowSucceeded(AdInfo adInfo){}
+		});
+		
+		IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.INTERSTITIAL);
 	}
 
-	public void ironsource_rewarded_video_init() {
-		if (android.os.Build.VERSION.SDK_INT >= 19)
-			executorService.execute(new Runnable() {
-				public void run() {
-					// Set the reward video ads operation to manual
-					// IronSource.setManualLoadRewardedVideo(this);
-					IronSource.setRewardedVideoListener(me);
-					IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.REWARDED_VIDEO);
-					// IronSource.loadRewardedVideo();
+	public void ironsource_rewarded_video_init() 
+{
+		IronSource.setLevelPlayRewardedVideoManualListener(new LevelPlayRewardedVideoManualListener() {
 
-					int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-					RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_init");
-					RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-				}
-			});
+		   @Override
+		   public void onAdReady(AdInfo adInfo) 
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_ready");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdLoadFailed(IronSourceError error)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_load_failed");
+				RunnerJNILib.DsMapAddString(dsMapIndex, "error", error.toString());
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdOpened(AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_opened");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdClosed(AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_closed");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdRewarded(Placement placement, AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_rewarded");
+				RunnerJNILib.DsMapAddString(dsMapIndex, "reward_name", placement.getRewardName());
+				RunnerJNILib.DsMapAddDouble(dsMapIndex, "reward_amount", (double)placement.getRewardAmount());
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdShowFailed(IronSourceError error, AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_show_failed");
+				RunnerJNILib.DsMapAddString(dsMapIndex, "error", error.toString());
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+
+		   @Override
+		   public void onAdClicked(Placement placement, AdInfo adInfo)
+		   {
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_clicked");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+		   }
+		   
+		});
+
+		IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.REWARDED_VIDEO);
 	}
+	
 
 	public void ironsource_offerwall_init() {
-		if (android.os.Build.VERSION.SDK_INT >= 19)
-			executorService.execute(new Runnable() {
-				public void run() {
-					IronSource.setOfferwallListener(me);
-					IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.OFFERWALL);
-
-					int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-					RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_init");
-					RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-				}
-			});
+		IronSource.setOfferwallListener(me);
+		IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.OFFERWALL);
 	}
 
 	public void ironsource_validate_integration() {
@@ -178,8 +284,7 @@ public class IronSourceGM extends RunnerActivity
 
 				layout = new RelativeLayout(activity);
 
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT);
+				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 				if (bottom > 0.5)
 					params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -193,52 +298,59 @@ public class IronSourceGM extends RunnerActivity
 				final ViewGroup rootView = activity.findViewById(android.R.id.content);
 				rootView.addView((View) layout);
 
-				adView.setBannerListener(new BannerListener() {
-					@Override
-					public void onBannerAdLoaded() {
-						adView.setVisibility(View.VISIBLE);
-						int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				adView.setLevelPlayBannerListener(new LevelPlayBannerListener() {
+
+				   @Override
+				   public void onAdLoaded(AdInfo adInfo)
+				   {
+					   	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 						RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_loaded");
 						RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-					}
+				   }
 
-					@Override
-					public void onBannerAdLoadFailed(IronSourceError error) {
+				   @Override
+				   public void onAdLoadFailed(IronSourceError error)
+				   {
 						int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 						RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_load_failed");
 						RunnerJNILib.DsMapAddString(dsMapIndex, "error", error.toString());
 						RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-					}
+				   }
 
-					@Override
-					public void onBannerAdClicked() {
+				   @Override
+				   public void onAdClicked(AdInfo adInfo)
+				   {
 						int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 						RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_clicked");
 						RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-					}
+				   }
 
-					@Override
-					public void onBannerAdScreenPresented() {
+				   @Override
+				   public void onAdScreenPresented(AdInfo adInfo)
+				   {
 						int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 						RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_presented");
 						RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-					}
+				   }
 
-					@Override
-					public void onBannerAdScreenDismissed() {
+				   @Override
+				   public void onAdScreenDismissed(AdInfo adInfo)
+				   {
 						int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 						RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_dismissed");
 						RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-					}
+				   }
 
-					@Override
-					public void onBannerAdLeftApplication() {
+				   @Override
+				   public void onAdLeftApplication(AdInfo adInfo)
+				   {
 						int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
 						RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_banner_left_application");
 						RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-					}
+				   }
+				   
 				});
-
+				
 				adView.requestLayout();
 				adView.setVisibility(View.VISIBLE);
 
@@ -334,7 +446,7 @@ public class IronSourceGM extends RunnerActivity
 
 	//////////////////////////// IronSource Interstitial
 
-	public void ironsource_interstitial_load() {
+public void ironsource_interstitial_load() {
 		IronSource.loadInterstitial();
 	}
 
@@ -355,57 +467,12 @@ public class IronSourceGM extends RunnerActivity
 		return 0.0;
 	}
 
-	@Override
-	public void onInterstitialAdReady() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_ready");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onInterstitialAdLoadFailed(IronSourceError ironSourceError) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_load_failed");
-		RunnerJNILib.DsMapAddString(dsMapIndex, "error", ironSourceError.toString());
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onInterstitialAdClicked() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_clicked");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onInterstitialAdOpened() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_opened");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onInterstitialAdClosed() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_closed");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onInterstitialAdShowSucceeded() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_show_succeeded");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onInterstitialAdShowFailed(IronSourceError ironSourceError) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_show_failed");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
 	///////////////////////////////// RewardedVideo
+
+
+	public void ironsource_rewarded_video_load() {
+			IronSource.loadRewardedVideo();
+	}
 
 	public void ironsource_rewarded_video_show(String placement_name) {
 		if (IronSource.isRewardedVideoAvailable())
@@ -422,85 +489,6 @@ public class IronSourceGM extends RunnerActivity
 		if (IronSource.isRewardedVideoPlacementCapped(placement_name))
 			return 1.0;
 		return 0.0;
-	}
-
-	@Override
-	public void onRewardedVideoAdReady() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_ready");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdLoadFailed(IronSourceError ironSourceError) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_load_failed");
-		RunnerJNILib.DsMapAddString(dsMapIndex, "error", ironSourceError.toString());
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdOpened() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_opened");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdClosed() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_closed");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAvailabilityChanged(boolean isAvailable) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_availability_changed");
-		if (isAvailable)
-			RunnerJNILib.DsMapAddDouble(dsMapIndex, "available", 1.0);
-		else
-			RunnerJNILib.DsMapAddDouble(dsMapIndex, "available", 0.0);
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdStarted() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_started");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdEnded() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_ended");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdRewarded(Placement placement) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_rewarded");
-		RunnerJNILib.DsMapAddString(dsMapIndex, "reward_name", placement.getRewardName());
-		RunnerJNILib.DsMapAddDouble(dsMapIndex, "reward_amount", (double)placement.getRewardAmount());
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-
-	}
-
-	@Override
-	public void onRewardedVideoAdShowFailed(IronSourceError ironSourceError) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_show_failed");
-		RunnerJNILib.DsMapAddString(dsMapIndex, "error", ironSourceError.toString());
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
-
-	@Override
-	public void onRewardedVideoAdClicked(Placement placement) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_rewarded_video_clicked");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 	}
 
 	///////////////////////////// Offerwall
