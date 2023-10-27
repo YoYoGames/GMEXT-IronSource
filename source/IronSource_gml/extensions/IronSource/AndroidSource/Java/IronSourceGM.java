@@ -36,6 +36,9 @@ import com.ironsource.mediationsdk.sdk.LevelPlayRewardedVideoListener;
 import com.ironsource.mediationsdk.sdk.LevelPlayRewardedVideoManualListener;
 import com.ironsource.mediationsdk.utils.IronSourceUtils;
 
+import com.ironsource.mediationsdk.impressionData.ImpressionData;
+import com.ironsource.mediationsdk.impressionData.ImpressionDataListener;
+
 // import com.ironsource.mediationsdk.AdInfo;
 // import com.ironsource.mediationsdk.sdk.AdInfo;
 // import com.ironsource.mediationsdk.IronSource.AdInfo;
@@ -57,7 +60,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 
-public class IronSourceGM extends RunnerSocial implements OfferwallListener
+public class IronSourceGM extends RunnerSocial implements OfferwallListener, ImpressionDataListener
 {
 	IronSourceGM me = this;
 
@@ -117,6 +120,11 @@ public class IronSourceGM extends RunnerSocial implements OfferwallListener
 					// RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 				// } 
 			// });
+	}
+
+	public void ironsource_set_user(String userId)
+	{
+		IronSource.setUserId(userId);
 	}
 
 	public void ironsource_banner_init() {
@@ -557,4 +565,27 @@ public void ironsource_interstitial_load() {
 		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_closed");
 		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 	}
+	
+	
+	public void ironsource_add_impression_data_listener()
+	{
+		IronSource.addImpressionDataListener(this);
+	}
+	
+	@Override
+    public void onImpressionSuccess(ImpressionData impressionData) 
+	{
+			int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+			RunnerJNILib.DsMapAddString(dsMapIndex,"type","IronSource_OnImpressionSuccess");
+			RunnerJNILib.DsMapAddString(dsMapIndex,"platform", "ironSource");
+			RunnerJNILib.DsMapAddString(dsMapIndex,"currency", "USD");
+			RunnerJNILib.DsMapAddDouble(dsMapIndex,"revenue", impressionData.getRevenue());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"instanceId", impressionData.getInstanceId());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"instanceName", impressionData.getInstanceName());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"auctionId", impressionData.getAuctionId());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"adNetwork", impressionData.getAdNetwork());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"placement", impressionData.getPlacement());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"adUnit", impressionData.getAdUnit());
+			RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+    }
 }
