@@ -332,7 +332,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 //[IronSource shouldTrackReachability:YES];//?????
 //[IronSource setDynamicUserId:@"DynamicUserId"];
 
--(void) ironsource_rewarded_video_show
+-(void) ironsource_rewarded_video_load
 {
     [IronSource loadRewardedVideo];
 }
@@ -356,17 +356,19 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     return 0.0;
 }
 
-- (void)rewardedVideoHasChangedAvailability:(BOOL)available
+- (void)didLoadWithAdInfo:(ISAdInfo *)adInfo
 {
     int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_rewarded_video_availability_changed");
-    if(available)
-        dsMapAddDouble(dsMapIndex, (char*)"available",1.0);
-    else
-        dsMapAddDouble(dsMapIndex, (char*)"available",0.0);
+    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_rewarded_video_ready");
     createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
+- (void)didFailToLoadWithError:(NSError *)error
+{
+    int dsMapIndex = dsMapCreate();
+    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_rewarded_video_load_failed");
+    createSocialAsyncEventWithDSMap(dsMapIndex);	
+}
 
 - (void)didReceiveRewardForPlacement:(ISPlacementInfo *)placementInfo
 {

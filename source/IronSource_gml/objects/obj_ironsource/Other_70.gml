@@ -60,14 +60,16 @@ switch(async_load[?"type"])
 	
 	////////Reward Video
 	
+	case "ironsource_rewarded_video_ready":
+	break
+	
+	case "ironsource_rewarded_video_load_failed":
+	break
+
     case "ironsource_rewarded_video_opened": 
 	break
 	
     case "ironsource_rewarded_video_closed": 
-	break
-	
-    case "ironsource_rewarded_video_availability_changed": 
-		var available = async_load[?"value"]
 	break
 	
     case "ironsource_rewarded_video_started": 
