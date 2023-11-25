@@ -41,6 +41,12 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     self.IS_AppKey = [NSString stringWithUTF8String: extOptGetString((char*)"IronSource", (char*)"AppKey_iOS")];
 }
 
+
+-(void) ironsource_set_user:(NSString*) str
+{
+	[IronSource setUserId: str];
+}
+
 -(void) ironsource_banner_init
 {
     [IronSource setLevelPlayBannerDelegate:self];
@@ -494,6 +500,34 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_closed");
     createSocialAsyncEventWithDSMap(dsMapIndex);
+}
+
+-(void) ironsource_add_impression_data_listener
+{
+	[IronSource addImpressionDataDelegate:self];
+}
+// -(void) ironsource_remove_impression_data_listener
+// {
+	// [IronSource removeImpressionDataDelegate:self];
+// }
+#pragma mark -
+#pragma mark ISImpressionDataDelegate
+- (void)impressionDataDidSucceed:(ISImpressionData *)impressionData
+{
+	int dsMapIndex = dsMapCreate();
+	
+	dsMapAddString(dsMapIndex,(char*)"type",(char*)"ironsource_impression_success");
+	dsMapAddString(dsMapIndex,(char*)"platform", (char*)(char*)"ironSource");
+	dsMapAddString(dsMapIndex,(char*)"currency", (char*)"USD");
+	dsMapAddDouble(dsMapIndex,(char*)"revenue", [impressionData.revenue doubleValue] );
+	dsMapAddString(dsMapIndex,(char*)"instance_dd", (char*)[impressionData.instance_id UTF8String]);
+	dsMapAddString(dsMapIndex,(char*)"instance_name", (char*)[impressionData.instance_name UTF8String]);
+	dsMapAddString(dsMapIndex,(char*)"auction_id", (char*)[impressionData.auction_id UTF8String]);
+	dsMapAddString(dsMapIndex,(char*)"ad_network", (char*)[impressionData.ad_network UTF8String]);
+	dsMapAddString(dsMapIndex,(char*)"placement", (char*)[impressionData.placement UTF8String]);
+	dsMapAddString(dsMapIndex,(char*)"ad_unit", (char*)[impressionData.ad_unit UTF8String]);
+	
+	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
     
 @end

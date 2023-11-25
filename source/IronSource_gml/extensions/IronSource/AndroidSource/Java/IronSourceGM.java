@@ -580,12 +580,12 @@ public void ironsource_interstitial_load() {
 			RunnerJNILib.DsMapAddString(dsMapIndex,"platform", "ironSource");
 			RunnerJNILib.DsMapAddString(dsMapIndex,"currency", "USD");
 			RunnerJNILib.DsMapAddDouble(dsMapIndex,"revenue", impressionData.getRevenue());
-			RunnerJNILib.DsMapAddString(dsMapIndex,"instanceId", impressionData.getInstanceId());
-			RunnerJNILib.DsMapAddString(dsMapIndex,"instanceName", impressionData.getInstanceName());
-			RunnerJNILib.DsMapAddString(dsMapIndex,"auctionId", impressionData.getAuctionId());
-			RunnerJNILib.DsMapAddString(dsMapIndex,"adNetwork", impressionData.getAdNetwork());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"instance_id", impressionData.getInstanceId());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"instance_name", impressionData.getInstanceName());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"auction_id", impressionData.getAuctionId());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"ad_network", impressionData.getAdNetwork());
 			RunnerJNILib.DsMapAddString(dsMapIndex,"placement", impressionData.getPlacement());
-			RunnerJNILib.DsMapAddString(dsMapIndex,"adUnit", impressionData.getAdUnit());
+			RunnerJNILib.DsMapAddString(dsMapIndex,"ad_unit", impressionData.getAdUnit());
 			RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
     }
 }
