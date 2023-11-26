@@ -4,7 +4,7 @@
 //#import <IronSource/ISConfigurations.h>
 #import <AdSupport/AdSupport.h>
 
-@interface IronSourceGM:NSObject <LevelPlayRewardedVideoManualDelegate,LevelPlayInterstitialDelegate,ISOfferwallDelegate,LevelPlayBannerDelegate>
+@interface IronSourceGM:NSObject <LevelPlayRewardedVideoManualDelegate,LevelPlayInterstitialDelegate,ISOfferwallDelegate,LevelPlayBannerDelegate,ISImpressionDataDelegate>
 {
     double bottom;
 }
