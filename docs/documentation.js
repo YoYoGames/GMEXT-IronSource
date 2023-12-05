@@ -18,6 +18,32 @@ function ironsource_init() {}
 function ironsource_banner_init() {}
 
 /** 
+ * @func ironsource_set_user
+ * @desc Set the UserID before the init request, to make sure you avoid any data losses, related to the user. Use a unique identifier, with up to 64 alphanumeric characters.
+ * @func_end
+ */
+function ironsource_set_user(userId)
+
+/** 
+ * @func ironsource_add_impression_data_listener
+ * @desc 
+ * @event social
+ * @member {string} type The value `"ironsource_add_impression_data_listener"`
+ * @member {string} platform value: `"IronSource`"
+ * @member {string} currency  value: `"USD`"
+ * @member {real} revenue The revenue generated for the impression (USD). The revenue value is either estimated or exact, according to the precision (see precision field description)	
+ * @member {string} instance_id Identifier per network, this includes the ad network’s. instanceID/placement/zone/etc.	
+ * @member {string} instance_name The ad network instance name as defined on the platform. For bidding sources, the instance name will be ‘Bidding’	
+ * @member {string} auction_id Unique identifier for the auction
+ * @member {string} ad_network The ad network name that served the ad	
+ * @member {string} placement The placement the user is related to	
+ * @member {string} ad_unit The ad unit displayed (Rewarded Video/Interstitial/Banner)	
+ * @event_end
+ * @func_end
+ */
+function ironsource_add_impression_data_listener()
+
+/** 
  * @func ironsource_banner_create
  * @desc Creates and displays a banner ad with the specified placement, size and position.
  * @param {string} placement_name The name of the ad placement.
@@ -117,7 +143,7 @@ function ironsource_interstitial_init() {}
 /** 
  * @func ironsource_interstitial_load
  * @desc Loads an interstitial ad.
- * 
+ *
  * @event social
  * @desc If the interstitial loaded successfully:
  * @member {string} type The value `"ironsource_interstitial_ready"`
@@ -128,7 +154,7 @@ function ironsource_interstitial_init() {}
  * @member {string} type The value `"ironsource_interstitial_load_failed"`
  * @member {string} error The error message.
  * @event_end
- * 
+ *
  * @func_end
  */
 function ironsource_interstitial_load() {}
@@ -187,21 +213,10 @@ function ironsource_interstitial_is_ready() {}
 /** 
  * @func ironsource_rewarded_video_init
  * @desc This function initialises the ironSource SDK for the Rewarded Video ad unit.
- * 
- * @event social
- * @desc Triggered when the rewarded video initialization process starts:
- * @member {string} type The value `"ironsource_rewarded_video_init"`
- * @event_end
- * 
+ *
  * @event social
  * @desc If the rewarded video is ready to be shown:
  * @member {string} type The value `"ironsource_rewarded_video_ready"`
- * @event_end
- * 
- * @event social
- * @desc If the rewarded video availability changes:
- * @member {string} type The value `"ironsource_rewarded_video_availability_changed"`
- * @member {boolean} available Whether the rewarded video available or not.
  * @event_end
  * 
  * @event social
@@ -215,10 +230,29 @@ function ironsource_interstitial_is_ready() {}
 function ironsource_rewarded_video_init() {}
 
 /** 
+ * @func ironsource_rewarded_video_load
+ * @desc Loads an rewarded video ad.
+ *
+ * @event social
+ * @desc If the rewarded video ad loaded successfully:
+ * @member {string} type The value `"ironsource_rewarded_video_ready"`
+ * @event_end
+ * 
+ * @event social
+ * @desc If the rewarded video ad failed to load
+ * @member {string} type The value `"ironsource_rewarded_video_load_failed"`
+ * @member {string} error The error message.
+ * @event_end
+ *
+ * @param {string} placement_name The name of the ad placement.
+ */
+function ironsource_rewarded_video_load() {}
+
+/** 
  * @func ironsource_rewarded_video_show
  * @desc Shows the rewarded video ad for the specified placement if it is available.
  * @param {string} placement_name The name of the ad placement.
- * 
+ *
  * @event social
  * @desc Triggered when the Rewarded Video ad view has opened. Your game will lose focus.
  * @member {string} type The value `"ironsource_rewarded_video_opened"`.
@@ -227,16 +261,6 @@ function ironsource_rewarded_video_init() {}
  * @event social
  * @desc Triggered when the Rewarded Video ad view is about to be closed. Your game will regain its focus.
  * @member {string} type The value `"ironsource_rewarded_video_closed"`.
- * @event_end
- * 
- * @event social
- * @desc Triggered when the video ad starts playing.
- * @member {string} type The value `"ironsource_rewarded_video_started"`.
- * @event_end
- * 
- * @event social
- * @desc Triggered when the video ad ends playing.
- * @member {string} type The value `"ironsource_rewarded_video_ended"`.
  * @event_end
  * 
  * @event social
@@ -255,15 +279,17 @@ function ironsource_rewarded_video_init() {}
  * @desc Triggered when the video ad was clicked. This callback is not supported by all networks, and we recommend using it only if it's supported by all networks you included in your build.
  * @member {string} type The value `"ironsource_rewarded_video_clicked"`.
  * @event_end
- * 
+ * @return {real}
+ *
  * @func_end
  */
+ 
+ 
 function ironsource_rewarded_video_show() {}    
 
 /** 
  * @func ironsource_rewarded_video_is_ready
  * @desc Checks if the rewarded video ad is available to be shown.
- * @return {real}
  * @func_end
  */
 function ironsource_rewarded_video_is_ready() {}

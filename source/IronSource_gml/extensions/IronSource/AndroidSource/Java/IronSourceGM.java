@@ -576,7 +576,7 @@ public void ironsource_interstitial_load() {
     public void onImpressionSuccess(ImpressionData impressionData) 
 	{
 			int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-			RunnerJNILib.DsMapAddString(dsMapIndex,"type","IronSource_OnImpressionSuccess");
+			RunnerJNILib.DsMapAddString(dsMapIndex,"type","ironsource_add_impression_data_listener");
 			RunnerJNILib.DsMapAddString(dsMapIndex,"platform", "ironSource");
 			RunnerJNILib.DsMapAddString(dsMapIndex,"currency", "USD");
 			RunnerJNILib.DsMapAddDouble(dsMapIndex,"revenue", impressionData.getRevenue());

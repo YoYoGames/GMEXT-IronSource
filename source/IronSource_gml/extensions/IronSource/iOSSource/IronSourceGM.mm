@@ -516,7 +516,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 {
 	int dsMapIndex = dsMapCreate();
 	
-	dsMapAddString(dsMapIndex,(char*)"type",(char*)"ironsource_impression_success");
+	dsMapAddString(dsMapIndex,(char*)"type",(char*)"ironsource_add_impression_data_listener");
 	dsMapAddString(dsMapIndex,(char*)"platform", (char*)(char*)"ironSource");
 	dsMapAddString(dsMapIndex,(char*)"currency", (char*)"USD");
 	dsMapAddDouble(dsMapIndex,(char*)"revenue", [impressionData.revenue doubleValue] );
