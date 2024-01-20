@@ -288,7 +288,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 }
 
 
--(void)interstitialDidFailToShowWithError:(NSError *)error
+-(void)interstitialDidFailToLoadWithError:(NSError *)error
 {
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_interstitial_load_failed");
@@ -319,7 +319,7 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
     createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
--(void)interstitialDidFailToLoadWithError:(NSError *)error
+-(void)interstitialDidFailToShowWithError:(NSError *)error
 {
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_interstitial_show_failed");
