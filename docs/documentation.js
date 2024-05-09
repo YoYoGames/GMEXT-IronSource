@@ -19,10 +19,11 @@ function ironsource_banner_init() {}
 
 /** 
  * @func ironsource_set_user
- * @desc Set the UserID before the init request, to make sure you avoid any data losses, related to the user. Use a unique identifier, with up to 64 alphanumeric characters.
+ * @desc Set the UserID before the init request, to make sure you avoid any data losses, related to the user. User unique identifier, with up to 64 alphanumeric characters.
+ * @param {string} user_id User a unique identifier, with up to 64 alphanumeric characters.
  * @func_end
  */
-function ironsource_set_user(userId)
+function ironsource_set_user(user_id) {}
 
 /** 
  * @func ironsource_add_impression_data_listener
@@ -41,7 +42,7 @@ function ironsource_set_user(userId)
  * @event_end
  * @func_end
  */
-function ironsource_add_impression_data_listener()
+function ironsource_add_impression_data_listener() {}
 
 /** 
  * @func ironsource_banner_create
@@ -244,7 +245,7 @@ function ironsource_rewarded_video_init() {}
  * @member {string} error The error message.
  * @event_end
  *
- * @param {string} placement_name The name of the ad placement.
+ * @func_end
  */
 function ironsource_rewarded_video_load() {}
 

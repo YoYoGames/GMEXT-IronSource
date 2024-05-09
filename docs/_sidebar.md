@@ -1,7 +1,8 @@
 * ### [ironSource Extension](home)
-* ### [Modules](#)
-  * ### [General](general)
-  * ### [Banner](banner)
-  * ### [Interstitial](interstitial)
-  * ### [Rewarded Video](rewarded)
-  * ### [Offerwall](offerwall)
+* ### [Modules]
+
+ * ${module.general}
+ * ${module.banner}
+ * ${module.interstitial}
+ * ${module.rewarded}
+ * ${module.offerwall}
