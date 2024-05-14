@@ -1,5 +1,5 @@
-* ### [ironSource Extension](home)
-* ### [Modules]
+* ### [IronSource Extension](home)
+* ### Modules
 
  * ${module.general}
  * ${module.banner}
