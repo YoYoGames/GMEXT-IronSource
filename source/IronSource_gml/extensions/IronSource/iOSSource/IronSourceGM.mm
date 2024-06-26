@@ -28,8 +28,8 @@ extern "C" const char* extOptGetString(char* _ext, char* _opt);
 
 extern "C" void AudioPauseAll(bool bSuspend);
 extern "C" void AudioResumeAll(void);
-
-extern "C" void RaiseOSPauseEvent();
+extern "C" void Audio_DevicePause();
+extern "C" void Audio_DeviceResume();
 
 @implementation listener_interstitial
 
@@ -63,6 +63,9 @@ extern "C" void RaiseOSPauseEvent();
 
 - (void)didFailToShowWithError:(NSError *)error andAdInfo:(ISAdInfo *)adInfo
 {
+	AudioResumeAll();
+	Audio_DeviceResume();
+
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_interstitial_show_failed");
     createSocialAsyncEventWithDSMap(dsMapIndex);
@@ -77,6 +80,9 @@ extern "C" void RaiseOSPauseEvent();
 
 - (void)didCloseWithAdInfo:(ISAdInfo *)adInfo
 {
+	AudioResumeAll();
+	Audio_DeviceResume();
+
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_interstitial_closed");
     createSocialAsyncEventWithDSMap(dsMapIndex);
@@ -96,6 +102,9 @@ extern "C" void RaiseOSPauseEvent();
 
 - (void)didFailToShowWithError:(NSError *)error andAdInfo:(ISAdInfo *)adInfo
 {
+	AudioResumeAll();
+	Audio_DeviceResume();
+	
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_rewarded_video_show_failed");
     createSocialAsyncEventWithDSMap(dsMapIndex);
@@ -117,6 +126,9 @@ extern "C" void RaiseOSPauseEvent();
 
 - (void)didCloseWithAdInfo:(ISAdInfo *)adInfo
 {
+	AudioResumeAll();
+	Audio_DeviceResume();
+	
     int dsMapIndex = dsMapCreate();
     dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_rewarded_video_closed");
     createSocialAsyncEventWithDSMap(dsMapIndex);
@@ -193,8 +205,6 @@ extern "C" void RaiseOSPauseEvent();
 
 -(void) ironsource_banner_create:(NSString*) placement_name size:(double) size bottom: (double)bottom
 {
-    RaiseOSPauseEvent();
-    
     self->bottom = bottom;
     if(self.bannerView != nil)
     {
@@ -387,7 +397,9 @@ extern "C" void RaiseOSPauseEvent();
 
 -(void) ironsource_interstitial_show:(NSString*) placement_name
 {
-    AudioPauseAll(true);
+	
+    AudioPauseAll(false);
+	Audio_DevicePause();
     [IronSource showInterstitialWithViewController:g_controller placement:placement_name];
 }
 
@@ -409,7 +421,8 @@ extern "C" void RaiseOSPauseEvent();
 
 -(void) ironsource_rewarded_video_show:(NSString*)placement_name
 {
-    AudioPauseAll(true);
+    AudioPauseAll(false);
+	Audio_DevicePause();
     [IronSource showRewardedVideoWithViewController:g_controller placement:placement_name];
 }
 
