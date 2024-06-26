@@ -38,23 +38,24 @@ switch(async_load[?"type"])
 	
 	////////////////Interstitial
 	
-    case "ironsource_interstitial_ready": 
+    case "ironsource_interstitial_ready":
 	break
 	
-    case "ironsource_interstitial_load_failed": 
+    case "ironsource_interstitial_load_failed":
 		ironsource_interstitial_load()
 	break
 	
-    case "ironsource_interstitial_clicked": 
+    case "ironsource_interstitial_clicked":
 	break
 	
-    case "ironsource_interstitial_opened": 
+    case "ironsource_interstitial_opened":
 	break
 	
-    case "ironsource_interstitial_closed": 
+    case "ironsource_interstitial_closed":
+		ironsource_interstitial_load()
 	break
 	
-    case "ironsource_interstitial_show_failed": 
+    case "ironsource_interstitial_show_failed":
 		ironsource_interstitial_load()
 	break
 	
@@ -64,28 +65,31 @@ switch(async_load[?"type"])
 	break
 	
 	case "ironsource_rewarded_video_load_failed":
+		ironsource_rewarded_video_load()
 	break
 
-    case "ironsource_rewarded_video_opened": 
+    case "ironsource_rewarded_video_opened":
 	break
 	
-    case "ironsource_rewarded_video_closed": 
+    case "ironsource_rewarded_video_closed":
+		ironsource_rewarded_video_load()
 	break
 	
-    case "ironsource_rewarded_video_started": 
-	break
+    //case "ironsource_rewarded_video_started": 
+	//break
 
-    case "ironsource_rewarded_video_ended": 
-	break
+    //case "ironsource_rewarded_video_ended": 
+	//break
 	
-    case "ironsource_rewarded_video_rewarded": 
+    case "ironsource_rewarded_video_rewarded":
 		show_message_async("Congrats!! (Reward The User)")
 	break        
 	
-    case "ironsource_rewarded_video_show_failed": 
+    case "ironsource_rewarded_video_show_failed":
+		ironsource_rewarded_video_load()
 	break
 	
-    case "ironsource_rewarded_video_clicked": 
+    case "ironsource_rewarded_video_clicked":
 	break
 	
 	////////////////Offer Wall
