@@ -174,7 +174,7 @@ extern "C" void Audio_DeviceResume();
 -(void) ironsource_banner_init
 {
     [IronSource setLevelPlayBannerDelegate:self];
-    [IronSource setOfferwallDelegate:self];
+    // [IronSource setOfferwallDelegate:self];
     
     [IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_BANNER]];
 }
@@ -193,10 +193,10 @@ extern "C" void Audio_DeviceResume();
     [IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_REWARDED_VIDEO]];
 }
 
--(void) ironsource_offerwall_init
-{
-    [IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_OFFERWALL]];
-}
+// -(void) ironsource_offerwall_init
+// {
+    // [IronSource initWithAppKey:self.IS_AppKey adUnits:@[IS_OFFERWALL]];
+// }
 
 -(void) ironsource_validate_integration
 {
@@ -442,75 +442,75 @@ extern "C" void Audio_DeviceResume();
     
 /////////////////////////////Offerwall
     
--(void) ironsource_offerwall_get_credits
-{
-    [IronSource offerwallCredits];
-}
+// -(void) ironsource_offerwall_get_credits
+// {
+    // [IronSource offerwallCredits];
+// }
 
--(void) ironsource_offerwall_show:(NSString*) placement_name
-{
-    [IronSource showOfferwallWithViewController:g_controller placement:placement_name];
-}
+// -(void) ironsource_offerwall_show:(NSString*) placement_name
+// {
+    // [IronSource showOfferwallWithViewController:g_controller placement:placement_name];
+// }
 
--(void) ironsource_offerwall_set_client_side_callbacks: (double)bool_
-{
-    //[ISSupersonicAdsConfiguration configurations].useClientSideCallbacks = [NSNumber numberWithInt:(int) bool_];
-}
+// -(void) ironsource_offerwall_set_client_side_callbacks: (double)bool_
+// {
+    // //[ISSupersonicAdsConfiguration configurations].useClientSideCallbacks = [NSNumber numberWithInt:(int) bool_];
+// }
 
-- (void)offerwallHasChangedAvailability:(BOOL)available
-{
-    int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_availability_changed");
-    if(available)
-        dsMapAddDouble(dsMapIndex, (char*)"available",1.0);
-    else
-        dsMapAddDouble(dsMapIndex, (char*)"available",0.0);
-    createSocialAsyncEventWithDSMap(dsMapIndex);
-}
+// - (void)offerwallHasChangedAvailability:(BOOL)available
+// {
+    // int dsMapIndex = dsMapCreate();
+    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_availability_changed");
+    // if(available)
+        // dsMapAddDouble(dsMapIndex, (char*)"available",1.0);
+    // else
+        // dsMapAddDouble(dsMapIndex, (char*)"available",0.0);
+    // createSocialAsyncEventWithDSMap(dsMapIndex);
+// }
 
--(void)offerwallDidShow
-{
-    int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_opened");
-    createSocialAsyncEventWithDSMap(dsMapIndex);
-}
+// -(void)offerwallDidShow
+// {
+    // int dsMapIndex = dsMapCreate();
+    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_opened");
+    // createSocialAsyncEventWithDSMap(dsMapIndex);
+// }
 
-- (void)offerwallDidFailToShowWithError:(NSError *)error
-{
-    int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_show_failed");
-    createSocialAsyncEventWithDSMap(dsMapIndex);
-}
+// - (void)offerwallDidFailToShowWithError:(NSError *)error
+// {
+    // int dsMapIndex = dsMapCreate();
+    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_show_failed");
+    // createSocialAsyncEventWithDSMap(dsMapIndex);
+// }
 
-- (void)didReceiveOfferwallCredits:(NSDictionary *)creditInfo
-{
-    int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_credited");
+// - (void)didReceiveOfferwallCredits:(NSDictionary *)creditInfo
+// {
+    // int dsMapIndex = dsMapCreate();
+    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_credited");
 
-    dsMapAddDouble(dsMapIndex, (char*)"credits",[[creditInfo valueForKey:@"credits"] doubleValue]);
-    dsMapAddDouble(dsMapIndex, (char*)"credits_total",[[creditInfo valueForKey:@"credits_total"] doubleValue]);
-    if([[creditInfo valueForKey:@"credits_total_flag"] boolValue])
-        dsMapAddDouble(dsMapIndex, (char*)"credits_total_flag",1.0);
-    else
-        dsMapAddDouble(dsMapIndex, (char*)"credits_total_flag",0.0);
+    // dsMapAddDouble(dsMapIndex, (char*)"credits",[[creditInfo valueForKey:@"credits"] doubleValue]);
+    // dsMapAddDouble(dsMapIndex, (char*)"credits_total",[[creditInfo valueForKey:@"credits_total"] doubleValue]);
+    // if([[creditInfo valueForKey:@"credits_total_flag"] boolValue])
+        // dsMapAddDouble(dsMapIndex, (char*)"credits_total_flag",1.0);
+    // else
+        // dsMapAddDouble(dsMapIndex, (char*)"credits_total_flag",0.0);
         
-    createSocialAsyncEventWithDSMap(dsMapIndex);
-}
+    // createSocialAsyncEventWithDSMap(dsMapIndex);
+// }
 
-- (void)didFailToReceiveOfferwallCreditsWithError:(NSError *)error
-{
-    int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_credits_failed");
-    createSocialAsyncEventWithDSMap(dsMapIndex);
-}
+// - (void)didFailToReceiveOfferwallCreditsWithError:(NSError *)error
+// {
+    // int dsMapIndex = dsMapCreate();
+    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_credits_failed");
+    // createSocialAsyncEventWithDSMap(dsMapIndex);
+// }
 
 
--(void)offerwallDidClose
-{
-    int dsMapIndex = dsMapCreate();
-    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_closed");
-    createSocialAsyncEventWithDSMap(dsMapIndex);
-}
+// -(void)offerwallDidClose
+// {
+    // int dsMapIndex = dsMapCreate();
+    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_offerwall_closed");
+    // createSocialAsyncEventWithDSMap(dsMapIndex);
+// }
 
 -(void) ironsource_add_impression_data_listener
 {

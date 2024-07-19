@@ -31,7 +31,7 @@ import com.ironsource.mediationsdk.model.Placement;
 import com.ironsource.mediationsdk.sdk.InitializationListener;
 import com.ironsource.mediationsdk.sdk.LevelPlayBannerListener;
 import com.ironsource.mediationsdk.sdk.LevelPlayInterstitialListener;
-import com.ironsource.mediationsdk.sdk.OfferwallListener;
+// import com.ironsource.mediationsdk.sdk.OfferwallListener;
 import com.ironsource.mediationsdk.sdk.LevelPlayRewardedVideoListener;
 import com.ironsource.mediationsdk.sdk.LevelPlayRewardedVideoManualListener;
 import com.ironsource.mediationsdk.utils.IronSourceUtils;
@@ -60,7 +60,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 
-public class IronSourceGM extends RunnerSocial implements OfferwallListener, ImpressionDataListener
+public class IronSourceGM extends RunnerSocial implements /*OfferwallListener,*/ ImpressionDataListener
 {
 	IronSourceGM me = this;
 
@@ -261,10 +261,10 @@ public class IronSourceGM extends RunnerSocial implements OfferwallListener, Imp
 	}
 	
 
-	public void ironsource_offerwall_init() {
-		IronSource.setOfferwallListener(me);
-		IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.OFFERWALL);
-	}
+	// public void ironsource_offerwall_init() {
+	// 	IronSource.setOfferwallListener(me);
+	// 	IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.OFFERWALL);
+	// }
 
 	public void ironsource_validate_integration() {
 		IntegrationHelper.validateIntegration(RunnerActivity.CurrentActivity);
@@ -501,70 +501,70 @@ public void ironsource_interstitial_load() {
 
 	///////////////////////////// Offerwall
 
-	public void ironsource_offerwall_get_credits() {
-		IronSource.getOfferwallCredits();
-	}
+	// public void ironsource_offerwall_get_credits() {
+	// 	IronSource.getOfferwallCredits();
+	// }
 
-	public void ironsource_offerwall_show(String placement_name) {
-		IronSource.showOfferwall(placement_name);
-	}
+	// public void ironsource_offerwall_show(String placement_name) {
+	// 	IronSource.showOfferwall(placement_name);
+	// }
 
-	public void ironsource_offerwall_set_client_side_callbacks(double bool_) {
-		SupersonicConfig.getConfigObj().setClientSideCallbacks(bool_ >= 0.5);
-	}
+	// public void ironsource_offerwall_set_client_side_callbacks(double bool_) {
+	// 	SupersonicConfig.getConfigObj().setClientSideCallbacks(bool_ >= 0.5);
+	// }
 
-	@Override
-	public void onOfferwallAvailable(boolean isAvailable) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_availability_changed");
-		if (isAvailable)
-			RunnerJNILib.DsMapAddDouble(dsMapIndex, "available", 1.0);
-		else
-			RunnerJNILib.DsMapAddDouble(dsMapIndex, "available", 0.0);
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
+	// @Override
+	// public void onOfferwallAvailable(boolean isAvailable) {
+	// 	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+	// 	RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_availability_changed");
+	// 	if (isAvailable)
+	// 		RunnerJNILib.DsMapAddDouble(dsMapIndex, "available", 1.0);
+	// 	else
+	// 		RunnerJNILib.DsMapAddDouble(dsMapIndex, "available", 0.0);
+	// 	RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+	// }
 
-	@Override
-	public void onOfferwallOpened() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_opened");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
+	// @Override
+	// public void onOfferwallOpened() {
+	// 	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+	// 	RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_opened");
+	// 	RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+	// }
 
-	@Override
-	public void onOfferwallShowFailed(IronSourceError error) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_show_failed");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
+	// @Override
+	// public void onOfferwallShowFailed(IronSourceError error) {
+	// 	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+	// 	RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_show_failed");
+	// 	RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+	// }
 
-	@Override
-	public boolean onOfferwallAdCredited(int credits, int credits_total, boolean credits_total_flag) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_credited");
-		RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits", (double) credits);
-		RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits_total", (double) credits_total);
-		if (credits_total_flag)
-			RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits_total_flag", 1.0);
-		else
-			RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits_total_flag", 0.0);
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-		return true;
-	}
+	// @Override
+	// public boolean onOfferwallAdCredited(int credits, int credits_total, boolean credits_total_flag) {
+	// 	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+	// 	RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_credited");
+	// 	RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits", (double) credits);
+	// 	RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits_total", (double) credits_total);
+	// 	if (credits_total_flag)
+	// 		RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits_total_flag", 1.0);
+	// 	else
+	// 		RunnerJNILib.DsMapAddDouble(dsMapIndex, "credits_total_flag", 0.0);
+	// 	RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+	// 	return true;
+	// }
 
-	@Override
-	public void onGetOfferwallCreditsFailed(IronSourceError error) {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_credits_failed");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
+	// @Override
+	// public void onGetOfferwallCreditsFailed(IronSourceError error) {
+	// 	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+	// 	RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_credits_failed");
+	// 	RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+	// }
 
-	@Override
-	public void onOfferwallClosed() {
-		int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
-		RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_closed");
-		RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
-	}
+	// @Override
+	// public void onOfferwallClosed() {
+	// 	int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+	// 	RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_offerwall_closed");
+	// 	RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+	// }
 	
 	
 	public void ironsource_add_impression_data_listener()
