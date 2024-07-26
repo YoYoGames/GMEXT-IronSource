@@ -539,6 +539,16 @@ extern "C" void Audio_DeviceResume();
 	
 	createSocialAsyncEventWithDSMap(dsMapIndex);
 }
+
+-(void) ironsource_set_consent:(double)enable
+{
+	 [IronSource setConsent:enable>0.5];
+}
+
+-(void) ironsource_set_metadata:(NSString*)key value:(NSString*)value
+{
+	[IronSource setMetaDataWithKey:key value:value];
+}
     
 @end
 

@@ -588,4 +588,17 @@ public void ironsource_interstitial_load() {
 			RunnerJNILib.DsMapAddString(dsMapIndex,"ad_unit", impressionData.getAdUnit());
 			RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
     }
+	
+	
+	
+	public void ironsource_set_consent(double enable)
+	{
+		IronSource.setConsent(enable>0.5);
+	}
+	
+	public void ironsource_set_metadata(String key,String value)
+	{
+		IronSource.setMetaData(key,value);
+	}
+
 }
