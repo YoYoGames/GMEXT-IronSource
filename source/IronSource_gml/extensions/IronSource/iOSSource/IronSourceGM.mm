@@ -56,9 +56,9 @@ extern "C" void Audio_DeviceResume();
 
 - (void)didShowWithAdInfo:(ISAdInfo *)adInfo
 {
-    // int dsMapIndex = dsMapCreate();
-    // dsMapAddString(dsMapIndex, (char*)"type",(char*)"");
-    // createSocialAsyncEventWithDSMap(dsMapIndex);
+    int dsMapIndex = dsMapCreate();
+    dsMapAddString(dsMapIndex, (char*)"type",(char*)"ironsource_interstitial_show_succeeded");
+    createSocialAsyncEventWithDSMap(dsMapIndex);
 }
 
 - (void)didFailToShowWithError:(NSError *)error andAdInfo:(ISAdInfo *)adInfo

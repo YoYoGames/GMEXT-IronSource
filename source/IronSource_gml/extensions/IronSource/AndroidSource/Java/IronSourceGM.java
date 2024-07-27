@@ -167,6 +167,14 @@ public class IronSourceGM extends RunnerSocial implements /*OfferwallListener,*/
 				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 		   }
 
+			@Override
+			public void onAdShowSucceeded(AdInfo adInfo)
+			{
+				int dsMapIndex = RunnerJNILib.jCreateDsMap(null, null, null);
+				RunnerJNILib.DsMapAddString(dsMapIndex,"type","ironsource_interstitial_show_succeeded");
+				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
+			}
+			 
 		   @Override
 		   public void onAdShowFailed(IronSourceError error, AdInfo adInfo)
 		   {
@@ -183,9 +191,6 @@ public class IronSourceGM extends RunnerSocial implements /*OfferwallListener,*/
 				RunnerJNILib.DsMapAddString(dsMapIndex, "type", "ironsource_interstitial_clicked");
 				RunnerJNILib.CreateAsynEventWithDSMap(dsMapIndex, EVENT_OTHER_SOCIAL);
 		   }
-
-		   @Override
-		   public void onAdShowSucceeded(AdInfo adInfo){}
 		});
 		
 		IronSource.init(activity, IS_appKey, IronSource.AD_UNIT.INTERSTITIAL);
