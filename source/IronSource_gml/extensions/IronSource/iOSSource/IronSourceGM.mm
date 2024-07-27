@@ -530,7 +530,7 @@ extern "C" void Audio_DeviceResume();
 	dsMapAddString(dsMapIndex,(char*)"platform", (char*)(char*)"ironSource");
 	dsMapAddString(dsMapIndex,(char*)"currency", (char*)"USD");
 	dsMapAddDouble(dsMapIndex,(char*)"revenue", [impressionData.revenue doubleValue] );
-	dsMapAddString(dsMapIndex,(char*)"instance_dd", (char*)[impressionData.instance_id UTF8String]);
+	dsMapAddString(dsMapIndex,(char*)"instance_id", (char*)[impressionData.instance_id UTF8String]);
 	dsMapAddString(dsMapIndex,(char*)"instance_name", (char*)[impressionData.instance_name UTF8String]);
 	dsMapAddString(dsMapIndex,(char*)"auction_id", (char*)[impressionData.auction_id UTF8String]);
 	dsMapAddString(dsMapIndex,(char*)"ad_network", (char*)[impressionData.ad_network UTF8String]);
