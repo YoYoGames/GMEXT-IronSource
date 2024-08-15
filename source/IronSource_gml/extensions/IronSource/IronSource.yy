@@ -17,7 +17,7 @@
   "copyToTargets":12,
   "description":"",
   "exportToGame":true,
-  "extensionVersion":"1.0.1",
+  "extensionVersion":"1.0.2",
   "files":[
     {"$GMExtensionFile":"","%Name":"","constants":[
         {"$GMExtensionConstant":"","%Name":"Ironsource_BannerSize_Banner","hidden":false,"name":"Ironsource_BannerSize_Banner","resourceType":"GMExtensionConstant","resourceVersion":"2.0","value":"0",},
