@@ -319,6 +319,8 @@ function ironsource_rewarded_video_is_capped() {}
  * You can then show the offerwall by calling ${function.ironsource_offerwall_show}.
  * @event_end
  * 
+ * @version 1.0.2 (-)
+ * 
  * @func_end
  */
 function ironsource_offerwall_init() {}
@@ -339,6 +341,8 @@ function ironsource_offerwall_init() {}
  * @desc Triggered when the method ${function.ironsource_offerwall_get_credits} fails to retrieve the user's credit balance info.
  * @member {string} type The value `"ironsource_offerwall_credits_failed"`
  * @event_end
+ * 
+ * @version 1.0.2 (-)
  * 
  * @func_end
  */
@@ -364,6 +368,8 @@ function ironsource_offerwall_get_credits() {}
  * @member {string} type The value `"ironsource_offerwall_closed"`
  * @event_end
  * 
+ * @version 1.0.2 (-)
+ * 
  * @func_end
  */
 function ironsource_offerwall_show() {}
@@ -371,7 +377,9 @@ function ironsource_offerwall_show() {}
 /** 
  * @func ironsource_offerwall_set_client_side_callbacks
  * @desc Call this function to check if the Steam API was correctly initialised.
-
+ * 
+ * @version 1.0.2 (-)
+ * 
  * @func_end
  */
 function ironsource_offerwall_set_client_side_callbacks() {}
@@ -379,6 +387,9 @@ function ironsource_offerwall_set_client_side_callbacks() {}
 /** 
  * @func ironsource_validate_integration
  * @desc This function validates the ironSource integration. It helps to ensure that the SDK is properly integrated into the app.
+ * 
+ * @version 1.0.2 (-)
+ * 
  * @func_end
  */
 function ironsource_validate_integration() {}
@@ -449,6 +460,9 @@ function ironsource_validate_integration() {}
  * @section_func
  * @ref ironsource_offerwall_*
  * @section_end
+ * 
+ * @version 1.0.2 (-)
+ * 
  * @module_end
  */
 

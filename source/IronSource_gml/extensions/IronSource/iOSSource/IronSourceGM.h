@@ -10,7 +10,7 @@
 @interface listener_reward :NSObject<LevelPlayRewardedVideoManualDelegate>
 @end
 
-@interface IronSourceGM:NSObject <ISOfferwallDelegate,LevelPlayBannerDelegate,ISImpressionDataDelegate>
+@interface IronSourceGM:NSObject <LevelPlayBannerDelegate,ISImpressionDataDelegate>
 {
     double bottom;
 }
