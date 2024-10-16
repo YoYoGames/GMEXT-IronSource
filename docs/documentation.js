@@ -394,6 +394,35 @@ function ironsource_offerwall_set_client_side_callbacks() {}
  */
 function ironsource_validate_integration() {}
 
+/**
+ * @func ironsource_set_consent
+ * @desc This function updates a user's consent status.
+ * 
+ * See: [Regulation Advanced Settings](https://developers.is.com/ironsource-mobile/android/regulation-advanced-settings/)
+ * 
+ * [[Important: You should make sure to request the user's consent before setting this value to `true`. If a consent is not obtained, you should not initialise the ironSource SDK. See **Consent Support** and **Privacy Directive** under [ironSource SDK implementations under the GDPR](https://developers.is.com/ironsource-mobile/general/making-sure-youre-compliant-post-gdpr).]]
+ * 
+ * [[Important: This function must be called before initialising the extension using ${function.ironsource_init}.]]
+ * 
+ * @param {bool} enable Whether the user provided consent.
+ * 
+ * @func_end
+ */
+
+/**
+ * @func ironsource_set_metadata
+ * @desc This function sets metadata related to privacy compliance.
+ * 
+ * See: [Regulation Advanced Settings](https://developers.is.com/ironsource-mobile/android/regulation-advanced-settings/)
+ * 
+ * [[Important: The metadata must be set before initialising the extension using ${function.ironsource_init}. See [Regulation Advanced Settings](developers.is.com/ironsource-mobile/android/regulation-advanced-settings) > **US Privacy Compliance**.]]
+ * 
+ * @param {string} key The key to set
+ * @param {string} value The value to assign to the key
+ * 
+ * @func_end
+ */
+
 // CONSTANTS
 
 /**
@@ -466,6 +495,22 @@ function ironsource_validate_integration() {}
  * @module_end
  */
 
+/**
+ * @module regulation
+ * @title Regulation
+ * @desc This module contains all functions related to regulation and user consent.
+ * 
+ * See: [Regulation Advanced Settings](https://developers.is.com/ironsource-mobile/android/regulation-advanced-settings/)
+ * 
+ * @section_func
+ * @desc These are the functions of this module: 
+ * @ref ironsource_set_consent
+ * @ref ironsource_set_metadata
+ * @section_end
+ * 
+ * @module_end
+ */
+
 /** 
  * @module home
  * @title Home
@@ -477,6 +522,7 @@ function ironsource_validate_integration() {}
  * @ref module.interstitial
  * @ref module.rewarded
  * @ref module.offerwall
+ * @ref module.regulation
  * @section_end
  * @module_end
  */
