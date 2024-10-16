@@ -6,3 +6,4 @@
  * ${module.interstitial}
  * ${module.rewarded}
  * ${module.offerwall}
+ * ${module.regulation}
